@@ -5,6 +5,9 @@ import com.solvd.realestate.exception.BadAddressException;
 import com.solvd.realestate.service.IAptService;
 import com.solvd.realestate.utils.Operation;
 import com.solvd.realestate.utils.Zones;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -13,6 +16,8 @@ import java.util.Scanner;
 import static com.solvd.realestate.utils.Stock.apartments;
 
 public class AptServiceImplemented implements IAptService {
+
+    public static final Logger LOGGER = LogManager.getLogger(BadAddressException.class);
 
     AptEntity apt;
     
@@ -32,7 +37,8 @@ public class AptServiceImplemented implements IAptService {
             try{
                 apartments.put(apartments.size(), loadApt());
             }catch(BadAddressException e){
-                System.out.println("Address must have number. Try Again.");
+                LOGGER.info("Address bad formatted");
+                //System.out.println("Address must have number. Try Again.");
             }
 
 
@@ -199,11 +205,11 @@ public class AptServiceImplemented implements IAptService {
 
     public boolean verifyAddress(String address){
         //TODO: verify address contains letters and numbers
-        System.out.println(apartments.size());
-        System.out.println(address);
-        System.out.println(address.matches("[A-Za-z]\\w+\\s[0-99999]\\d+"));
-        //return address.matches(address.matches("[A-Za-z]\\w+\\s[0-99999]\\d+"));
-        return true;
+        //System.out.println(apartments.size());
+        //System.out.println(address);
+        //System.out.println(address.matches("[A-Za-z]\\w+\\s[0-99999]\\d+"));
+        return address.matches(".*\\w+.*\\s+\\d+");
+        //return true;
 
 
     }
