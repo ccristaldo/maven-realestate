@@ -5,7 +5,6 @@ import com.solvd.realestate.exception.BadAddressException;
 import com.solvd.realestate.service.IAptService;
 import com.solvd.realestate.utils.Operation;
 import com.solvd.realestate.utils.Zones;
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -38,11 +37,8 @@ public class AptServiceImplemented implements IAptService {
                 apartments.put(apartments.size(), loadApt());
             }catch(BadAddressException e){
                 LOGGER.info("Address bad formatted");
-                //System.out.println("Address must have number. Try Again.");
             }
 
-
-            //Stock.stock.add(loadApt());
 
             // clear buffer
             sn.nextLine();
