@@ -19,8 +19,8 @@ public class MenuTransactionView {
 
             System.out.println("1. Create Transaction");
             System.out.println("2. Read Rent Transactions");
-            System.out.println("3. Update Employee by Id");
-            System.out.println("4. Delete Employee by Id");
+            System.out.println("3. Read Sell Transactions");
+            System.out.println("4. Filter by Customer's avalaible amount");
             System.out.println("5. Filter Employee by Branch");
             System.out.println("6. Back to Main Menu");
 

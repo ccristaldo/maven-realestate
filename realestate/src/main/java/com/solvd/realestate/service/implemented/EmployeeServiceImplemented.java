@@ -28,7 +28,7 @@ public class EmployeeServiceImplemented implements IEmployeeService {
         while (!exit) {
 
             try{
-                Employees.personnel.add(loadEmployee());
+                Employees.employees.add(loadEmployee());
             }catch (NameNullException e){
                 System.out.println("Name must not be empty");
             }
@@ -47,9 +47,9 @@ public class EmployeeServiceImplemented implements IEmployeeService {
 
     @Override
     public void readEmployees() {
-        if (!Employees.personnel.isEmpty()) {
+        if (!Employees.employees.isEmpty()) {
 
-            for (EmployeeEntity employee : Employees.personnel){
+            for (EmployeeEntity employee : Employees.employees){
                 if (employee.isActive()){
                     System.out.println(employee);
                 }
@@ -62,7 +62,7 @@ public class EmployeeServiceImplemented implements IEmployeeService {
     @Override
     public void updateEmployeeById(int id) {
         try{
-            Employees.personnel.set(id, loadEmployee());
+            Employees.employees.set(id, loadEmployee());
         }catch (NameNullException e){
             e.printStackTrace();
         }
@@ -74,7 +74,7 @@ public class EmployeeServiceImplemented implements IEmployeeService {
     @Override
     public void deleteEmployeeById(int id) {
         //Soft Delete
-        Employees.personnel.get(id).setActive(false);
+        Employees.employees.get(id).setActive(false);
         System.out.println("Employee removed \n");
     }
 
@@ -106,7 +106,7 @@ public class EmployeeServiceImplemented implements IEmployeeService {
 
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
-        employee.setEmployeeId(Employees.personnel.size());
+        employee.setEmployeeId(Employees.employees.size());
         employee.setBranch(Branches.branches.get(idBranch).getDescription());
 
         Branches.branches.get(idBranch).getEmployees().add(employee);
