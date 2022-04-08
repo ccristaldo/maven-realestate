@@ -1,6 +1,7 @@
 package com.solvd.realestate.model;
 
 
+import com.solvd.realestate.exception.BadAddressException;
 import com.solvd.realestate.service.implemented.AptServiceImplemented;
 
 import java.util.InputMismatchException;
@@ -64,6 +65,8 @@ public class MenuAptView {
             } catch (InputMismatchException e) {
                 System.out.println("Debes insertar un número");
                 sn.next();
+            } catch (BadAddressException e) {
+                e.printStackTrace();
             }
         }
     }

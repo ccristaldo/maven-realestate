@@ -1,10 +1,10 @@
 package com.solvd.realestate.service.implemented;
 
 import com.solvd.realestate.entity.apt.AptEntity;
+import com.solvd.realestate.enums.Operation;
+import com.solvd.realestate.enums.Zones;
 import com.solvd.realestate.exception.BadAddressException;
 import com.solvd.realestate.service.IAptService;
-import com.solvd.realestate.utils.Operation;
-import com.solvd.realestate.utils.Zones;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -21,23 +21,21 @@ public class AptServiceImplemented implements IAptService {
     AptEntity apt;
     
     Scanner sn = new Scanner(System.in);
-    String address, zone, operation;
+    String address;
+    Operation operation;
+    Zones zone;
     int idZone, idOperation, dimension, rooms;
     double cost;
 
     @Override
-    public void createApt() {
+    public void createApt() throws BadAddressException {
 
         String finish;
         boolean exit = false;
 
         while (!exit) {
 
-            try{
-                apartments.put(apartments.size(), loadApt());
-            }catch(BadAddressException e){
-                LOGGER.info("Address bad formatted");
-            }
+            apartments.put(apartments.size(), loadApt());
 
 
             // clear buffer
@@ -166,10 +164,10 @@ public class AptServiceImplemented implements IAptService {
 
         switch (idOperation){
             case 1:
-                operation = Operation.SELL;
+                operation = Operation.TO_SELL;
                 break;
             case 2:
-                operation=Operation.RENT;
+                operation=Operation.TO_RENT;
                 break;
             default:
                 System.out.println("Only numbers. 1-2");
@@ -188,7 +186,7 @@ public class AptServiceImplemented implements IAptService {
 
         apt.setAddress(address);
         apt.setZone(zone);
-        apt.setOperation(operation);
+        apt.setOperation(String.valueOf(operation));
         apt.setCost(cost);
         apt.setDimension(dimension);
         apt.setRooms(rooms);

@@ -1,18 +1,20 @@
 package com.solvd.realestate.entity.apt;
 
+import com.solvd.realestate.enums.Zones;
+
 public abstract class AbstractApt {
 
-    private String zone;
+    private Zones zone;
     private String operation;
     private String address;
 
-    public AbstractApt(String zone, String operation, String address) {
+    public AbstractApt(Zones zone, String operation, String address) {
         this.zone = zone;
         this.operation = operation;
         this.address = address;
     }
 
-    public AbstractApt(String zone, String operation) {
+    public AbstractApt(Zones zone, String operation) {
         this.zone = zone;
         this.operation = operation;
     }
@@ -23,11 +25,11 @@ public abstract class AbstractApt {
 
     public AbstractApt() {}
 
-    public String getZone() {
+    public Zones getZone() {
         return zone;
     }
 
-    public void setZone(String zone) {
+    public void setZone(Zones zone) {
         this.zone = zone;
     }
 

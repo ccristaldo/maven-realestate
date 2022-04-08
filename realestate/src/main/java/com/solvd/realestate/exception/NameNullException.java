@@ -1,6 +1,6 @@
 package com.solvd.realestate.exception;
 
-public class NameNullException extends Exception{
+public class NameNullException extends RuntimeException{
 
     public NameNullException() {}
 
