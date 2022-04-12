@@ -8,9 +8,9 @@ public class Branches {
 
     public static ArrayList<BranchEntity> branches = new ArrayList<>();
 
-    BranchEntity central = new BranchEntity("Central Branch", "Evergreen 123", 33, 0);
-    BranchEntity uptown = new BranchEntity("Uptown Branch", "Fake St 321", 55, 1);
-    BranchEntity downtown = new BranchEntity("Downtown Branch", "5th Av 345", 44, 2);
+    BranchEntity central = new BranchEntity("Central Branch", "Evergreen 123", String.valueOf(33), 0);
+    BranchEntity uptown = new BranchEntity("Uptown Branch", "Fake St 321", String.valueOf(55), 1);
+    BranchEntity downtown = new BranchEntity("Downtown Branch", "5th Av 345", String.valueOf(44), 2);
 
     public void addBranch(){
         Branches.branches.add(central);

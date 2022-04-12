@@ -10,18 +10,18 @@ public class BranchEntity extends AbstractApt {
 
 
     private String description;
-    private int tel;
+    private String tel;
     private int id;
     private ArrayList<EmployeeEntity> employees = new ArrayList<>();
 
-    public BranchEntity(String description, String address, int tel, ArrayList<EmployeeEntity> employees) {
+    public BranchEntity(String description, String address, String tel, ArrayList<EmployeeEntity> employees) {
         super(address);
         this.description = description;
         this.tel = tel;
         this.employees = employees;
     }
 
-    public BranchEntity(String description, String address, int tel, int id) {
+    public BranchEntity(String description, String address, String tel, int id) {
         super(address);
         this.description = description;
         this.tel = tel;
@@ -41,11 +41,11 @@ public class BranchEntity extends AbstractApt {
 
 
 
-    public int getTel() {
+    public String getTel() {
         return tel;
     }
 
-    public void setTel(int tel) {
+    public void setTel(String tel) {
         this.tel = tel;
     }
     public ArrayList<EmployeeEntity> getEmployees() {

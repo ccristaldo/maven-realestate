@@ -5,8 +5,10 @@ import com.solvd.realestate.enums.Operation;
 import com.solvd.realestate.enums.Zones;
 import com.solvd.realestate.exception.BadAddressException;
 import com.solvd.realestate.service.IAptService;
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -16,7 +18,7 @@ import static com.solvd.realestate.utils.Stock.apartments;
 
 public class AptServiceImplemented implements IAptService {
 
-    public static final Logger LOGGER = LogManager.getLogger(BadAddressException.class);
+    public static final Logger LOGGER = LogManager.getLogger(BadAddressException.class.getName());
 
     AptEntity apt;
     
@@ -61,22 +63,24 @@ public class AptServiceImplemented implements IAptService {
                 }
             }
         }else{
-            System.out.println("There's no apartments yet");
+            LOGGER.log(Level.WARN,"There's no apartments yet");
+            //System.out.println("There's no apartments yet");
         }
     }
 
     @Override
     public void updateApt(int id) {
         if (apartments.containsKey(id)){
+
             try{
                 apartments.put(id, loadApt());
             }catch(BadAddressException e){
-                System.out.println("Address must have number");
+                LOGGER.log(Level.WARN, "Address must have number");
             }
 
-            System.out.println("Apartment Updated \n");
+            LOGGER.log(Level.INFO,"Apartment Updated \n");
         }else{
-            System.out.println("Item does not exists");
+            LOGGER.log(Level.WARN,"Item does not exists");
         }
 
     }
@@ -86,16 +90,16 @@ public class AptServiceImplemented implements IAptService {
         //soft delete
         if (apartments.containsKey(id)){
             apartments.get(id).setActive(false);
-            System.out.println("Apartment Deleted \n");
+            LOGGER.log(Level.INFO,"Apartment Deleted \n");
         }else{
-            System.out.println("Item does not exists");
+            LOGGER.log(Level.WARN,"Item does not exists");
         }
     }
 
     @Override
     public void filterAptById(int id) {
         if (apartments.get(id) == null){
-            System.out.println("There's no apartment with that id");
+            LOGGER.log(Level.WARN,"There's no apartment with that id");
         }else{
             System.out.println(apartments.get(id));
         }
@@ -191,20 +195,12 @@ public class AptServiceImplemented implements IAptService {
         apt.setDimension(dimension);
         apt.setRooms(rooms);
 
-        //TODO: set apt id with using hashmap
-        //apt.setAptId(Stock.stock.size());
-
         return apt;
     }
 
-    public boolean verifyAddress(String address){
-        //TODO: verify address contains letters and numbers
-        //System.out.println(apartments.size());
-        //System.out.println(address);
-        //System.out.println(address.matches("[A-Za-z]\\w+\\s[0-99999]\\d+"));
-        return address.matches(".*\\w+.*\\s+\\d+");
-        //return true;
+    public boolean verifyAddress(@NotNull String address){
 
+        return address.matches(".*\\w+.*\\s+\\d+");
 
     }
 }

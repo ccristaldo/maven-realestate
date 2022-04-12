@@ -1,10 +1,12 @@
 package com.solvd.realestate.entity.apt;
 
+import com.solvd.realestate.enums.Zones;
+
 public class AptPrefEntity extends AbstractApt{
     private int rooms;
 
 
-    public AptPrefEntity(String zone, String operation, int rooms) {
+    public AptPrefEntity(Zones zone, String operation, int rooms) {
         super(zone, operation);
         this.rooms= rooms;
     }

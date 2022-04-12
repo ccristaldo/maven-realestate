@@ -2,7 +2,7 @@ package com.solvd.realestate.entity.transaction.rent;
 
 import com.solvd.realestate.entity.apt.AptEntity;
 import com.solvd.realestate.entity.customer.CustomerEntity;
-import com.solvd.realestate.entity.employee.EmployeeEntity;
+import com.solvd.realestate.entity.person.employee.EmployeeEnt;
 
 import java.time.LocalDateTime;
 
@@ -11,12 +11,12 @@ public class RentEntity {
     private int contractRentExtension;
     private LocalDateTime contractRentDate;
     private CustomerEntity contractRentCustomer;
-    private EmployeeEntity contractRentEmployee;
+    private EmployeeEnt contractRentEmployee;
     private AptEntity contractRentApt;
 
     public RentEntity(){}
 
-    public RentEntity(int contractRentExtension, LocalDateTime contractRentDate, CustomerEntity contractRentCustomer, EmployeeEntity contractRentEmployee, AptEntity contractRentApt) {
+    public RentEntity(int contractRentExtension, LocalDateTime contractRentDate, CustomerEntity contractRentCustomer, EmployeeEnt contractRentEmployee, AptEntity contractRentApt) {
         this.contractRentExtension = contractRentExtension;
         this.contractRentDate = contractRentDate;
         this.contractRentCustomer = contractRentCustomer;
@@ -48,11 +48,11 @@ public class RentEntity {
         this.contractRentCustomer = contractRentCustomer;
     }
 
-    public EmployeeEntity getContractRentEmployee() {
+    public EmployeeEnt getContractRentEmployee() {
         return contractRentEmployee;
     }
 
-    public void setContractRentEmployee(EmployeeEntity contractRentEmployee) {
+    public void setContractRentEmployee(EmployeeEnt contractRentEmployee) {
         this.contractRentEmployee = contractRentEmployee;
     }
 

@@ -1,12 +1,18 @@
 package com.solvd.realestate.service.implemented;
 
 import com.solvd.realestate.entity.branch.BranchEntity;
+import com.solvd.realestate.exception.BadAddressException;
 import com.solvd.realestate.service.IBranchService;
 import com.solvd.realestate.utils.Branches;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.Scanner;
 
 public class BranchServiceImplemented implements IBranchService {
+
+    public static final Logger LOGGER = LogManager.getLogger(BadAddressException.class.getName());
 
     Scanner sn = new Scanner(System.in);
     String address, description;
@@ -18,10 +24,8 @@ public class BranchServiceImplemented implements IBranchService {
         try{
             System.out.println(Branches.branches.get(id));
         }catch (IndexOutOfBoundsException e){
-            System.out.format("Branch with id [%d] does not exists\n", id);
+            LOGGER.log(Level.WARN, "Branch with id " + id + "does not exists\n");
         }
-
-
 
     }
 
@@ -33,7 +37,7 @@ public class BranchServiceImplemented implements IBranchService {
     @Override
     public void readAllBranch() {
         if (Branches.branches.isEmpty()){
-            System.out.println("there is no branches yet");
+            LOGGER.log(Level.WARN, "there is no branches yet");
         }else{
             Branches.branches.forEach(System.out::println);
         }
@@ -43,6 +47,10 @@ public class BranchServiceImplemented implements IBranchService {
 
         System.out.println("Enter Branch's address:");
         address = sn.nextLine();
+
+        if (!verifyAddress(address)){
+            throw new BadAddressException("Address must have number.");
+        }
 
         System.out.println("Enter Branch's description:");
         description = sn.nextLine();
@@ -54,11 +62,17 @@ public class BranchServiceImplemented implements IBranchService {
 
         branch.setAddress(address);
         branch.setDescription(description);
-        branch.setTel(tel);
+        branch.setTel(String.valueOf(tel));
         branch.setId(Branches.branches.size());
 
         Branches.branches.add(branch);
 
+
+    }
+
+    public boolean verifyAddress(String address){
+
+        return address.matches(".*\\w+.*\\s+\\d+");
 
     }
 }

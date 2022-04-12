@@ -1,7 +1,8 @@
 package com.solvd.realestate.service.implemented;
 
 
-import com.solvd.realestate.entity.employee.EmployeeEntity;
+import com.solvd.realestate.entity.person.PersonGenerics;
+import com.solvd.realestate.entity.person.employee.EmployeeEnt;
 import com.solvd.realestate.exception.NameNullException;
 import com.solvd.realestate.service.IEmployeeService;
 import com.solvd.realestate.utils.Branches;
@@ -13,11 +14,14 @@ import java.util.Scanner;
 
 public class EmployeeServiceImplemented implements IEmployeeService {
 
+    //Transaction<RentEntity> rentTransaction = new Transaction<>();
+    PersonGenerics<EmployeeEnt> employees = new PersonGenerics<>();
+
     Scanner sn = new Scanner(System.in);
     String firstName, lastName;
     int idBranch ;
 
-    EmployeeEntity employee;
+    EmployeeEnt employee;
 
     @Override
     public void createEmployee() {
@@ -28,7 +32,8 @@ public class EmployeeServiceImplemented implements IEmployeeService {
         while (!exit) {
 
             try{
-                Employees.employees.add(loadEmployee());
+                employees.add(loadEmployee());
+                //Employees.employees.add(loadEmployee());
             }catch (NameNullException e){
                 System.out.println("Name must not be empty");
             }
@@ -47,9 +52,14 @@ public class EmployeeServiceImplemented implements IEmployeeService {
 
     @Override
     public void readEmployees() {
-        if (!Employees.employees.isEmpty()) {
+        //TODO: CONTINUE FROM HERE!
 
-            for (EmployeeEntity employee : Employees.employees){
+        System.out.println(employees.isEmpty());
+        employees.forEach(System.out::println);
+        /*
+        if (!employees.isEmpty()) {
+
+            for (EmployeeEnt employee : Employees.employees){
                 if (employee.isActive()){
                     System.out.println(employee);
                 }
@@ -57,6 +67,8 @@ public class EmployeeServiceImplemented implements IEmployeeService {
         }else{
             System.out.println("There's no employees yet");
         }
+
+         */
     }
 
     @Override
@@ -87,7 +99,7 @@ public class EmployeeServiceImplemented implements IEmployeeService {
         }
     }
 
-    public EmployeeEntity loadEmployee() throws NameNullException {
+    public EmployeeEnt loadEmployee() throws NameNullException {
 
         System.out.println("Enter employee's first name:");
         firstName = sn.nextLine();
@@ -102,14 +114,14 @@ public class EmployeeServiceImplemented implements IEmployeeService {
         Branches.branches.forEach(branchEntity -> System.out.println(branchEntity.getId() + " -> " + branchEntity.getDescription()));
         idBranch = sn.nextInt();
 
-        employee = new EmployeeEntity();
+        employee = new EmployeeEnt();
 
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
         employee.setEmployeeId(Employees.employees.size());
         employee.setBranch(Branches.branches.get(idBranch).getDescription());
 
-        Branches.branches.get(idBranch).getEmployees().add(employee);
+        //Branches.branches.get(idBranch).getEmployees().add(employee);
 
         return employee;
     }
