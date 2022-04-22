@@ -45,10 +45,8 @@ public class MenuTransactionView {
                         //employeeServiceImplemented.updateEmployeeById(id);
                         break;
                     case 4:
-                        System.out.println("Delete Employee by Id: \n");
-                        System.out.println("Enter Id: ");
-                        id = sn.nextInt();
-                        //employeeServiceImplemented.deleteEmployeeById(id);
+                        System.out.println("Filter Apartment by Customer's avalaible amount: \n");
+                        transactionServiceImplemented.findAptByAmount();
                         break;
                     case 5:
                         System.out.println("Filter Employee by Branch: \n");

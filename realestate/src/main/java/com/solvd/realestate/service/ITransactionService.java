@@ -4,4 +4,5 @@ public interface ITransactionService {
 
     void createTransaction();
     void readRentTransactions();
+    void findAptByAmount();
 }

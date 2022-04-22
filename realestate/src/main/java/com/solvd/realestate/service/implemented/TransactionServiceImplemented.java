@@ -1,5 +1,6 @@
 package com.solvd.realestate.service.implemented;
 
+import com.solvd.realestate.entity.apt.AptEntity;
 import com.solvd.realestate.entity.transaction.Transaction;
 import com.solvd.realestate.entity.transaction.rent.RentEntity;
 import com.solvd.realestate.entity.transaction.sell.SellEntity;
@@ -13,7 +14,10 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class TransactionServiceImplemented implements ITransactionService {
 
@@ -66,6 +70,19 @@ public class TransactionServiceImplemented implements ITransactionService {
     @Override
     public void readRentTransactions() {
         rentTransaction.forEach(System.out::println);
+
+    }
+
+    @Override
+    public void findAptByAmount() {
+
+        double amount;
+        ArrayList<AptEntity> suitableApt = new ArrayList<>(Stock.apartments.values());
+
+        System.out.println("Enter available amount: ");
+        amount = sc.nextDouble();
+
+        suitableApt.stream().filter(e-> e.getCost() <= amount).forEach(System.out::println);
 
     }
 
