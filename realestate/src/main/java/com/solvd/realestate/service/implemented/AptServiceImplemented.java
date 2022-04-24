@@ -11,10 +11,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Scanner;
@@ -133,12 +130,22 @@ public class AptServiceImplemented implements IAptService {
             LOGGER.log(Level.FATAL, "Connection is null");
         }
         String query = "SELECT * FROM `aptentity`";
-        Statement stmt = conn.createStatement();
+        PreparedStatement ps = conn.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            System.out.println(rs.getString("address")+" "+rs.getString("zone"));
+        }
+        ps.close();
+        rs.close();
+
+       /* Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         while (rs.next()){
             addres = rs.getString("address");
             System.out.println(addres);
         }
+
+        */
 
     }
 
