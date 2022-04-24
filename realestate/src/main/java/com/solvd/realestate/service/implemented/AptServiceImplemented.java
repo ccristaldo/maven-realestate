@@ -1,5 +1,6 @@
 package com.solvd.realestate.service.implemented;
 
+import com.solvd.realestate.connection.ConnectionPool;
 import com.solvd.realestate.entity.apt.AptEntity;
 import com.solvd.realestate.enums.Operation;
 import com.solvd.realestate.enums.Zones;
@@ -10,6 +11,10 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Scanner;
@@ -17,6 +22,20 @@ import java.util.Scanner;
 import static com.solvd.realestate.utils.Stock.apartments;
 
 public class AptServiceImplemented implements IAptService {
+
+    public static Connection getConnected(){
+        Connection conn = null;
+        conn = ConnectionPool.getInstance().getConnection();
+        //connection successfully
+        if (conn != null){
+            LOGGER.log(Level.INFO, "Connected to DATABASE");
+
+        }else{
+            LOGGER.log(Level.ERROR, "Unable to connect DATABASE");
+        }
+        return conn;
+    }
+
 
     public static final Logger LOGGER = LogManager.getLogger(BadAddressException.class.getName());
 
@@ -102,6 +121,23 @@ public class AptServiceImplemented implements IAptService {
             LOGGER.log(Level.WARN,"There's no apartment with that id");
         }else{
             System.out.println(apartments.get(id));
+        }
+
+    }
+
+    @Override
+    public void readFromDB() throws SQLException {
+        String addres;
+        Connection conn = getConnected();
+        if (conn == null){
+            LOGGER.log(Level.FATAL, "Connection is null");
+        }
+        String query = "SELECT * FROM `aptentity`";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()){
+            addres = rs.getString("address");
+            System.out.println(addres);
         }
 
     }

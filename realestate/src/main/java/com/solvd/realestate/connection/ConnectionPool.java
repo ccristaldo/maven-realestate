@@ -13,10 +13,10 @@ public class ConnectionPool {
 
     public static final Logger LOGGER = LogManager.getLogger(BadAddressException.class.getName());
 
-    private final String DB = "realestate";
-    private final String URL = "jdbc:mysql://localhost:3306/"+DB;
-    private final String USER = "root";
-    private final String PASS = "";
+    private final String DB = "sql10487982";
+    private final String URL = "jdbc:mysql://sql10.freesqldatabase.com:3306/"+DB;
+    private final String USER = "sql10487982";
+    private final String PASS = "MnNdCxbnC7";
 
     private static ConnectionPool dataSource;
     private BasicDataSource basicDataSource=null;
@@ -40,16 +40,12 @@ public class ConnectionPool {
     public static ConnectionPool getInstance(){
         if (dataSource == null) {
             dataSource = new ConnectionPool();
-        /*
             return  dataSource;
         }else{
             return dataSource;
         }
-         */
-        }
-        return dataSource;
-
     }
+
 
     public Connection getConnection(){
         Connection conn = null;
@@ -57,6 +53,8 @@ public class ConnectionPool {
             conn = basicDataSource.getConnection();
         }catch (SQLException e){
             LOGGER.log(Level.ERROR, "Unable to connect DataBase");
+            e.printStackTrace();
+            System.out.println(e.getErrorCode());
         }
         return conn;
     }

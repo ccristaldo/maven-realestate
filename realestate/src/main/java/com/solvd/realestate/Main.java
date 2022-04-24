@@ -1,15 +1,41 @@
 package com.solvd.realestate;
 
 
+import com.solvd.realestate.connection.ConnectionPool;
+import com.solvd.realestate.exception.BadAddressException;
 import com.solvd.realestate.model.*;
 import com.solvd.realestate.utils.Branches;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
-
+    public static final Logger LOGGER = LogManager.getLogger(BadAddressException.class.getName());
+/*
+    public static Connection getConnected(){
+        Connection conn = null;
+        try{
+            conn = ConnectionPool.getInstance().getConnection();
+            //connection successfully
+            if (conn != null){
+                LOGGER.log(Level.INFO, "Connected to DATABASE");
+                ConnectionPool.getInstance().closeConnection(conn);
+            }else{
+                LOGGER.log(Level.ERROR, "Unable to connect DATABASE");
+            }
+        }catch (SQLException e){
+            LOGGER.log(Level.FATAL, "Unable to execute");
+        }
+        return conn;
+    }
+*/
     public static void main(String[] args) {
+
         Scanner sn = new Scanner(System.in);
         boolean salir = false;
         int opcion;
